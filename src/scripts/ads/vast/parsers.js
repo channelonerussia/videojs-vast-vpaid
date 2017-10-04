@@ -3,6 +3,7 @@
 var utilities = require('../../utils/utilityFunctions');
 
 var durationRegex = /(\d\d):(\d\d):(\d\d)(\.(\d\d\d))?/;
+var timeRegex = /(\d\d):(\d\d)/;
 
 var parsers = {
 
@@ -54,6 +55,27 @@ var parsers = {
 
     function calcPercent(quantity, percent){
       return quantity * percent / 100;
+    }
+  },
+
+  time : function parseTime(timeStr) {
+    var match, timeInMs;
+
+    if (utilities.isString(timeStr)) {
+      match = timeStr.match(timeRegex);
+      if (match) {
+        timeInMs = parseMinToMs(match[1]) + parseSecToMs(match[2]);
+      }
+    }
+
+    return isNaN(timeInMs) ? null : timeInMs;
+
+    function parseMinToMs(minStr) {
+      return parseInt(minStr, 10) * 60 * 1000;
+    }
+
+    function parseSecToMs(secStr) {
+      return parseInt(secStr, 10) * 1000;
     }
   }
 

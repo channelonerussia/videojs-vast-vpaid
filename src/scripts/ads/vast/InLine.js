@@ -3,6 +3,7 @@
 var vastUtil = require('./vastUtil');
 var Creative = require('./Creative');
 
+var parsers = require('./parsers');
 var utilities = require('../../utils/utilityFunctions');
 var xml = require('../../utils/xml');
 
@@ -25,6 +26,10 @@ function InLine(inlineJTree) {
   this.pricing = xml.keyValue(inlineJTree.pricing);
   this.extensions = inlineJTree.extensions;
 
+  if (this.extensions && this.extensions.extension) {
+    this.times = parseExtensions(this.extensions.extension);
+  }
+
   /*** Local Functions ***/
   function parseSurveys(inlineSurveys) {
     if (inlineSurveys) {
@@ -40,6 +45,18 @@ function InLine(inlineJTree) {
       });
     }
     return [];
+  }
+
+  function parseExtensions(extData) {
+    var times = {};
+    if (extData) {
+      extData = utilities.isArray(extData) ? extData : [extData];
+      extData.forEach(function (_extData) {
+        var time = parsers.time(_extData.keyValue);
+        if (time) times[_extData.attr('type')] = time;
+      });
+    }
+    return times;
   }
 }
 
