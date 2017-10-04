@@ -418,6 +418,7 @@ VPAIDIntegrator.prototype._setupEvents = function (adUnit, vastResponse, next) {
 VPAIDIntegrator.prototype._addSkipButton = function (adUnit, vastResponse, next) {
   var skipButton;
   var player = this.player;
+  var that = this;
   var skipTime = getSkipTime(vastResponse);
 
   if (skipTime >= 0) adUnit.on('AdSkippableStateChange', updateSkipButtonState);
@@ -446,15 +447,30 @@ VPAIDIntegrator.prototype._addSkipButton = function (adUnit, vastResponse, next)
     });
   }
 
+  function skipButtonTimer() {
+    if (!skipButton) return;
+
+    if (that._adUnit.isPaused()) {
+      setTimeout(skipButtonTimer, 500);
+      return;
+    }
+
+    if (skipTime > 0) {
+      skipTime -= 1000;
+      setTimeout(skipButtonTimer, 1000);
+      return;
+    }
+
+    dom.removeClass(skipButton, "vjs-hidden");
+  }
+
+
   function addSkipButton(player) {
     skipButton = createSkipButton(player);
     dom.addClass(skipButton, "vjs-hidden");
     player.el().appendChild(skipButton);
-    player.on('vpaid.AdStarted', function() {
-      setTimeout(function() {
-        if (skipButton) dom.removeClass(skipButton, "vjs-hidden");
-      }, skipTime);
-    });
+
+    skipButtonTimer();
   }
 
   function removeSkipButton() {
