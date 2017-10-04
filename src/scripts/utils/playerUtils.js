@@ -70,7 +70,7 @@ playerUtils.restorePlayerSnapshot = function restorePlayerSnapshot(player, snaps
 
   if ('style' in snapshot) {
     // overwrite all css style properties to restore state precisely
-    tech.setAttribute('style', snapshot.style || '');
+    if (tech) tech.setAttribute('style', snapshot.style || '');
   }
 
   if (hasSrcChanged(player, snapshot)) {
