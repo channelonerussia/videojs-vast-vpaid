@@ -62,6 +62,7 @@ VASTIntegrator.prototype.playAd = function playAd(vastResponse, callback) {
     },
 
     resumeAd: function () {
+      that.player.trigger('vast.resumeAd');
       that.player.play(true);
     },
 
@@ -276,6 +277,7 @@ VASTIntegrator.prototype._addClickThrough = function addClickThrough(mediaFile, 
         return false;
       }
 
+      player.trigger('vast.AdClickThru');
       player.pause();
       tracker.trackClick();
     };
@@ -357,7 +359,7 @@ VASTIntegrator.prototype._playSelectedAd = function playSelectedAd(source, respo
 
     logger.debug ("<VASTIntegrator._playSelectedAd/playAd> calling player.play()...");
 
-    player.play();
+    typeof player.ready === 'function' ? player.ready(player.play) : player.play();
   }
 };
 
