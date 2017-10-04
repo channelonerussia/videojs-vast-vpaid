@@ -11,7 +11,8 @@ var options = parseArgs(process.argv.slice(2), knownOptions);
 
 var videoJsVersionsMap = {
   '4': 'bower_components/videojs_4/dist/video-js/',
-  '5': 'bower_components/videojs_5/dist/'
+  '5': 'bower_components/videojs_5/dist/',
+  '6': 'bower_components/videojs_5/dist/'
 };
 
 var demoAds = [
