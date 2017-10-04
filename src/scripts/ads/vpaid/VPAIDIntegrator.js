@@ -454,7 +454,7 @@ VPAIDIntegrator.prototype._addSkipButton = function (adUnit, vastResponse, next)
       setTimeout(function() {
         if (skipButton) dom.removeClass(skipButton, "vjs-hidden");
       }, skipTime);
-    };
+    });
   }
 
   function removeSkipButton() {
