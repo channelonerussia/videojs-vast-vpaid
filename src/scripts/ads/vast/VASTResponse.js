@@ -27,6 +27,7 @@ function VASTResponse() {
   this.adTitle = '';
   this.duration = undefined;
   this.skipoffset = undefined;
+  this.times = undefined;
 }
 
 VASTResponse.prototype.addAd = function (ad) {
@@ -116,6 +117,12 @@ VASTResponse.prototype._addSkipoffset = function (offset) {
   }
 };
 
+VASTResponse.prototype._addTimes = function (times) {
+  if (times) {
+    this.times = times;
+  }
+};
+
 VASTResponse.prototype._addAdParameters = function (adParameters) {
   if (adParameters) {
     this.adParameters = adParameters;
@@ -141,6 +148,7 @@ VASTResponse.prototype._addInLine = function (inLine) {
     this._addTitle(inLine.adTitle);
     this._addErrorTrackUrl(inLine.error);
     this._addImpressions(inLine.impressions);
+    this._addTimes(inLine.times);
 
     inLine.creatives.forEach(function (creative) {
       if (creative.linear) {
