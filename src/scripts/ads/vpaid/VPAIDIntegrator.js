@@ -482,7 +482,7 @@ VPAIDIntegrator.prototype._addSkipButton = function (adUnit, vastResponse, next)
     var skipButton = window.document.createElement("div");
     dom.addClass(skipButton, "vast-skip-button");
     dom.addClass(skipButton, "enabled");
-    skipButton.innerHTML = "Skip ad";
+    skipButton.innerHTML = /^(ru|be|uk)/i.test(navigator.language || navigator.userLanguage) ? "&#1055;&#1088;&#1086;&#1087;&#1091;&#1089;&#1090;&#1080;&#1090;&#1100;" : "Skip ad";
 
     skipButton.onclick = function (e) {
       adUnit.skipAd(utilities.noop);//We skip the adUnit

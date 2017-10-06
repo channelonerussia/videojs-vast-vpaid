@@ -232,11 +232,11 @@ VASTIntegrator.prototype._addSkipButton = function addSkipButton(source, tracker
   function updateSkipButtonState(skipButton, skipOffset, player) {
     var timeLeft = Math.ceil(skipOffset - player.currentTime());
     if (timeLeft > 0) {
-      skipButton.innerHTML = "Пропустить через " + utilities.toFixedDigits(timeLeft, 2) + "...";
+      skipButton.innerHTML = (/^(ru|be|uk)/i.test(navigator.language || navigator.userLanguage) ? "&#1055;&#1088;&#1086;&#1087;&#1091;&#1089;&#1090;&#1080;&#1090;&#1100;&#32;&#1095;&#1077;&#1088;&#1077;&#1079; " : "Skip in ") + utilities.toFixedDigits(timeLeft, 2) + "...";
     } else {
       if (!dom.hasClass(skipButton, 'enabled')) {
         dom.addClass(skipButton, 'enabled');
-        skipButton.innerHTML = "Skip ad";
+        skipButton.innerHTML = /^(ru|be|uk)/i.test(navigator.language || navigator.userLanguage) ? "&#1055;&#1088;&#1086;&#1087;&#1091;&#1089;&#1090;&#1080;&#1090;&#1100;" : "Skip ad";
       }
     }
   }
