@@ -25,7 +25,8 @@
     "prepare-hooks": "chmod u+x scripts/*",
     "setup-hooks": "./scripts/setup-hooks",
     "preinstall": "npm run prepare-hooks -s && npm run setup-hooks -s",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "build": "export NODE_ENV=production && gulp build"
   },
   "author": [
     "Carlos Serrano <carlos.pastor@mailonline.co.uk>"

@@ -111,7 +111,8 @@ VPAIDIntegrator.prototype.playAd = function playVPaidAd(vastResponse, callback) 
       that._trackError(vastResponse, error.code);
     }
     player.trigger('vpaid.adEnd');
-    callback(error, vastResponse);
+    player.trigger('vast.adEnd');
+    // callback(error, vastResponse);
   }
 
   function triggerVpaidAdEnd(){
